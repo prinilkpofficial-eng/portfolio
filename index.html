@@ -28,10 +28,13 @@ html { scroll-behavior:smooth; }
 body { background:var(--black); color:var(--white); font-family:'DM Sans','Segoe UI',Helvetica,Arial,sans-serif; font-weight:300; overflow-x:hidden; cursor:none; }
 
 /* CURSOR */
-.cursor { width:10px; height:10px; background:var(--gold); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform .1s,background .2s; }
-.cursor-ring { width:36px; height:36px; border:1px solid var(--gold-dim); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:left .15s ease,top .15s ease,transform .2s,border-color .2s; }
+.cursor { width:10px; height:10px; background:var(--gold); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform .1s,background .2s; opacity:0; }
+.cursor-ring { width:36px; height:36px; border:1px solid var(--gold-dim); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:left .12s ease,top .12s ease,transform .2s,border-color .2s; opacity:0; }
+.cursor.active { opacity:1; }
+.cursor-ring.active { opacity:1; }
 .cursor.hovered { transform:translate(-50%,-50%) scale(2.5); background:var(--gold-light); }
 .cursor-ring.hovered { transform:translate(-50%,-50%) scale(1.8); border-color:var(--gold); }
+a,button,.proj-tab,.stat-card,.skill-cat,.gallery-item,.cert-card { cursor:none; }
 
 /* GRAIN */
 body::before { content:''; position:fixed; inset:0; pointer-events:none; z-index:9997; opacity:.4; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); }
@@ -47,7 +50,7 @@ nav.scrolled { background:rgba(10,10,10,.97); backdrop-filter:blur(12px); paddin
 .nav-links a:hover::after { width:100%; }
 .nav-cta { background:transparent; border:1px solid var(--gold-dim); color:var(--gold); padding:9px 22px; font-family:'DM Sans',sans-serif; font-size:.75rem; font-weight:500; letter-spacing:.15em; text-transform:uppercase; text-decoration:none; transition:all .25s; }
 .nav-cta:hover { background:var(--gold); color:var(--black); }
-.hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:none; padding:4px; }
+.hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
 .hamburger span { display:block; width:22px; height:1.5px; background:var(--gold); transition:all .3s; }
 
 /* HERO */
@@ -133,7 +136,7 @@ section { padding:100px 60px; }
 /* PROJECTS */
 #projects { background:var(--black); }
 .proj-tabs { display:flex; gap:2px; margin-bottom:4px; flex-wrap:wrap; }
-.proj-tab { background:var(--dark2); border:1px solid var(--dark4); color:var(--grey); font-size:.75rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; padding:12px 22px; cursor:none; transition:all .3s; font-family:'DM Sans',sans-serif; }
+.proj-tab { background:var(--dark2); border:1px solid var(--dark4); color:var(--grey); font-size:.75rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; padding:12px 22px; cursor:pointer; transition:all .3s; font-family:'DM Sans',sans-serif; }
 .proj-tab:hover,.proj-tab.active { background:var(--gold); color:var(--black); border-color:var(--gold); }
 .proj-panel { display:none; }
 .proj-panel.active { display:block; }
@@ -207,7 +210,7 @@ section { padding:100px 60px; }
 .form-group input:focus,.form-group textarea:focus { border-color:var(--gold-dim); }
 .form-group input::placeholder,.form-group textarea::placeholder { color:var(--grey); }
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-.submit-btn { width:100%; background:var(--gold); color:var(--black); border:none; padding:15px; font-family:'DM Sans',sans-serif; font-size:.85rem; font-weight:600; letter-spacing:.15em; text-transform:uppercase; cursor:none; transition:background .3s; }
+.submit-btn { width:100%; background:var(--gold); color:var(--black); border:none; padding:15px; font-family:'DM Sans',sans-serif; font-size:.85rem; font-weight:600; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; transition:background .3s; }
 .submit-btn:hover { background:var(--gold-light); }
 .form-success { display:none; margin-top:14px; color:var(--green); font-size:.8rem; text-align:center; font-family:'DM Mono',monospace; letter-spacing:.1em; }
 
@@ -225,7 +228,7 @@ footer { padding:40px 60px; border-top:1px solid var(--dark4); display:flex; jus
 .lightbox.open { display:flex; }
 .lightbox-inner { position:relative; max-width:900px; width:100%; }
 .lightbox-inner img { width:100%; height:auto; max-height:80vh; object-fit:contain; }
-.lb-close { position:absolute; top:-38px; right:0; background:none; border:none; color:var(--gold); font-size:1.1rem; cursor:none; font-family:'DM Mono',monospace; letter-spacing:.1em; }
+.lb-close { position:absolute; top:-38px; right:0; background:none; border:none; color:var(--gold); font-size:1.1rem; cursor:pointer; font-family:'DM Mono',monospace; letter-spacing:.1em; }
 #lb-caption { text-align:center; color:var(--grey-light); font-size:.8rem; margin-top:14px; font-family:'DM Mono',monospace; letter-spacing:.1em; }
 
 /* RESPONSIVE */
@@ -250,6 +253,7 @@ footer { padding:40px 60px; border-top:1px solid var(--dark4); display:flex; jus
   .form-row { grid-template-columns:1fr; }
   body { cursor:auto; }
   .cursor,.cursor-ring { display:none; }
+  a,button,.proj-tab,.stat-card,.skill-cat,.gallery-item,.cert-card { cursor:auto; }
 }
 </style>
 </head>
@@ -357,7 +361,7 @@ footer { padding:40px 60px; border-top:1px solid var(--dark4); display:flex; jus
     <div class="tl-item reveal">
       <div class="tl-dot"></div>
       <div class="tl-period">AUG 2023 — OCT 2025</div>
-      <div class="tl-role">Digital Marketing Manager</div>
+      <div class="tl-role">Digital Marketing Executive</div>
       <div class="tl-company">Thextruder Digital Agency · Kochi, India (Remote)</div>
       <ul class="tl-bullets">
         <li>Managed paid and organic campaigns for 10+ clients across retail, fashion, healthcare, wedding, and e-commerce</li>
@@ -434,13 +438,13 @@ footer { padding:40px 60px; border-top:1px solid var(--dark4); display:flex; jus
       </div>
       <div class="case-sub-title">Campaign Creatives &amp; Ad Results</div>
       <div class="gallery-grid">
-        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/Fasttrack Car Registration Cover Photo.jpeg" alt="Ad Creative 1" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>🎨</div><div class=gallery-placeholder-lbl>Creative 1</div></div>'"/><div class="gallery-cap">Ad Creative 1</div></div>
-        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/Fasttrack Car Registration 1.jpeg" alt="Ad Creative 2" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>🎨</div><div class=gallery-placeholder-lbl>Creative 2</div></div>'"/><div class="gallery-cap">Ad Creative 2</div></div>
-        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/Fasttrack Car Registration 2.jpeg" alt="Ad Creative 3" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>🎨</div><div class=gallery-placeholder-lbl>Creative 3</div></div>'"/><div class="gallery-cap">Ad Creative 3</div></div>
-        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/fasttrack-ads.jpeg" alt="Ads Results" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>📊</div><div class=gallery-placeholder-lbl>Ads Results</div></div>'"/><div class="gallery-cap">Meta Ads Campaign Results</div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/fasttrack1.jpeg" alt="Ad Creative 1" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>🎨</div><div class=gallery-placeholder-lbl>Creative 1</div></div>'"/><div class="gallery-cap">Ad Creative 1</div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/fasttrack2.jpeg" alt="Ad Creative 2" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>🎨</div><div class=gallery-placeholder-lbl>Creative 2</div></div>'"/><div class="gallery-cap">Ad Creative 2</div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/fasttrack3.jpeg" alt="Ad Creative 3" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>🎨</div><div class=gallery-placeholder-lbl>Creative 3</div></div>'"/><div class="gallery-cap">Ad Creative 3</div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/fasttrack4.jpeg" alt="Ads Results" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>📊</div><div class=gallery-placeholder-lbl>Ads Results</div></div>'"/><div class="gallery-cap">Meta Ads Campaign Results</div></div>
       </div>
       <div style="margin-top:2px;">
-        <div class="gallery-item" style="aspect-ratio:16/7;" onclick="openLightbox(this)"><img class="gallery-img" src="images/fasttrack-gmb.jpeg" alt="GMB" onerror="this.style.display='none'"/><div class="gallery-cap">Google Business Profile — Local SEO Setup</div></div>
+        <div class="gallery-item" style="aspect-ratio:16/7;" onclick="openLightbox(this)"><img class="gallery-img" src="images/fasttrack5.jpeg" alt="GMB" onerror="this.style.display='none'"/><div class="gallery-cap">Google Business Profile — Local SEO Setup</div></div>
       </div>
     </div>
   </div>
@@ -473,8 +477,8 @@ footer { padding:40px 60px; border-top:1px solid var(--dark4); display:flex; jus
       </div>
       <div class="case-sub-title">Meta Ads Results &amp; SEO Activities</div>
       <div class="gallery-grid two-col">
-        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/laura-meta.jpeg" alt="Meta Ads" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>📊</div><div class=gallery-placeholder-lbl>Meta Ads Details</div></div>'"/><div class="gallery-cap">Meta Ads Campaign Results</div></div>
-        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/laura-seo.jpeg" alt="SEO" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>🔍</div><div class=gallery-placeholder-lbl>SEO Activities</div></div>'"/><div class="gallery-cap">SEO Audit &amp; Optimisation</div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/laura1.jpeg" alt="Meta Ads" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>📊</div><div class=gallery-placeholder-lbl>Meta Ads Details</div></div>'"/><div class="gallery-cap">Meta Ads Campaign Results</div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/laura2.jpeg" alt="SEO" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>🔍</div><div class=gallery-placeholder-lbl>SEO Activities</div></div>'"/><div class="gallery-cap">SEO Audit &amp; Optimisation</div></div>
       </div>
     </div>
   </div>
@@ -507,8 +511,8 @@ footer { padding:40px 60px; border-top:1px solid var(--dark4); display:flex; jus
       </div>
       <div class="case-sub-title">Campaign Screenshots</div>
       <div class="gallery-grid two-col">
-        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/coconut-google.jpeg" alt="Google Campaign" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>📊</div><div class=gallery-placeholder-lbl>Google Call Campaign</div></div>'"/><div class="gallery-cap">Google Ads — Call Campaign</div></div>
-        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/coconut-meta.jpeg" alt="Meta Campaign" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>📊</div><div class=gallery-placeholder-lbl>Meta Message Campaign</div></div>'"/><div class="gallery-cap">Meta Ads — Message Campaign</div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/coconutwedding1.png" alt="Google Campaign" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>📊</div><div class=gallery-placeholder-lbl>Google Call Campaign</div></div>'"/><div class="gallery-cap">Google Ads — Call Campaign</div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img class="gallery-img" src="images/coconutwedding2.png" alt="Meta Campaign" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=gallery-placeholder-icon>📊</div><div class=gallery-placeholder-lbl>Meta Message Campaign</div></div>'"/><div class="gallery-cap">Meta Ads — Message Campaign</div></div>
       </div>
     </div>
   </div>
@@ -692,10 +696,18 @@ footer { padding:40px 60px; border-top:1px solid var(--dark4); display:flex; jus
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // CURSOR
 const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-(function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
-document.querySelectorAll('a,button,.stat-card,.skill-cat,.gallery-item,.cert-card').forEach(el=>{
+let mx=0,my=0,rx=0,ry=0,started=false;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+  if(!started){ started=true; cur.classList.add('active'); ring.classList.add('active'); }
+});
+(function anim(){
+  rx+=(mx-rx)*.10; ry+=(my-ry)*.10;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(anim);
+})();
+document.querySelectorAll('a,button,.proj-tab,.stat-card,.skill-cat,.gallery-item,.cert-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.classList.add('hovered');ring.classList.add('hovered');});
   el.addEventListener('mouseleave',()=>{cur.classList.remove('hovered');ring.classList.remove('hovered');});
 });
@@ -742,3 +754,10 @@ function openLightbox(el){
   if(!img||img.style.display==='none') return;
   document.getElementById('lb-img').src=img.src;
   document.getElementById('lb-caption').textContent=cap?cap.textContent:'';
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+</script>
+</body>
+</html>
