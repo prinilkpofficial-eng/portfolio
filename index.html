@@ -58,7 +58,7 @@ nav.scrolled { background:rgba(10,10,10,.97); backdrop-filter:blur(12px); paddin
 .hero-bg-word { position:absolute; right:-20px; top:50%; transform:translateY(-50%); font-family:'Playfair Display',Georgia,serif; font-weight:900; font-size:clamp(120px,18vw,260px); color:transparent; -webkit-text-stroke:1px rgba(201,168,76,.06); user-select:none; pointer-events:none; white-space:nowrap; line-height:1; z-index:0; }
 .hero-line { position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(to bottom,transparent,var(--gold),transparent); animation:linepulse 3s ease-in-out infinite; }
 @keyframes linepulse { 0%,100%{opacity:.3} 50%{opacity:1} }
-.hero-content { max-width:720px; padding-left:40px; padding-top:0; position:relative; z-index:2; }
+.hero-content { max-width:720px; padding-left:40px; padding-top:120px; position:relative; z-index:2; }
 
 .badge { display:inline-flex; align-items:center; gap:8px; background:rgba(74,222,128,.08); border:1px solid rgba(74,222,128,.25); color:var(--green); font-size:.78rem; font-family:'DM Mono',monospace; font-weight:500; letter-spacing:.12em; padding:8px 16px; margin-bottom:28px; }
 .badge-dot { width:6px; height:6px; background:var(--green); border-radius:50%; animation:blink 1.8s ease-in-out infinite; }
@@ -757,3 +757,10 @@ function openLightbox(el){
   if(!img||img.style.display==='none') return;
   document.getElementById('lb-img').src=img.src;
   document.getElementById('lb-caption').textContent=cap?cap.textContent:'';
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+</script>
+</body>
+</html>
